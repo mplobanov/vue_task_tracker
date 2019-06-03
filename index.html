@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="css/open-iconic-master/font/css/open-iconic-bootstrap.css">
+    <title>Hello, world!</title>
+</head>
+<body>
+    <div class="container main" id="app">
+        <div class="row">
+            <div class="alert alert-danger col-12" v-if="have_message" v-text="message"></div>
+            <!--<button class="btn btn-danger offset-1 col-1" v-if="have_message" v-on:click="remove_message">OK</button>-->
+        </div>
+        <!--<div class="input-group" v-if="have_message">
+            <input type="text" class="form-control is-invalid" disabled v-model="message">
+            <div class="input-group-append">
+                <button class="btn btn-danger" type="button" v-on:click="remove_message">OK</button>
+            </div>
+        </div>-->
+
+        <h1>
+            Список дел
+        </h1>
+        <div class="input-group">
+            <input type="text" class="form-control" autofocus v-bind:placeholder="next_todo_placeholder" @keyup.enter="addTodo" aria-label="Еще одно дельце..." v-model="next_todo">
+            <div class="input-group-append">
+                <button class="btn btn-primary" v-on:click="addTodo" type="button">Add</button>
+            </div>
+        </div>
+        <table class="table todo_table table-sm" v-if="todos.length > 0">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Дело</th>
+                <th scope="col" class="text-right">Удалить?</th>
+                <th scope="col" class="text-right">Done?</th>
+            </tr>
+
+            </thead>
+            <tbody>
+                <tr v-for="todo in todos" v-if="showing_done || (!todo.done)">
+                    <th scope="row" v-text="todos.indexOf(todo) + 1"></th>
+                    <td v-text="todo.text" class="text-justify"></td>
+                    <td v-on:click="remove_todo(todo)" class="pointer text-right"><span class="oi oi-trash text-danger" title="trash" aria-hidden="true"></span></td>
+                    <td class="text-right pointer" v-on:click="invert(todo)">
+                        <span class="oi oi-check text-success" title="check" aria-hidden="true" v-if="todo.done"></span>
+                        <span class="oi oi-x text-danger" title="x" aria-hidden="true" v-else="todo.done"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th><b>ИТОГО </b></th>
+                    <th colspan="2" class="text-right"><b>{{ amount }} TODO </b></th>
+                    <td v-on:click="invert_showing" class="unslectable">
+                        <p class="show-done text-primary text-right pointer" v-if="!showing_done">Показать сделанные</p>
+                        <p class="show-done text-primary text-right pointer" v-else="!showing_done">Скрыть сделанные</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3 v-else="todos.length > 0" class="todo_table">Тут делать-то особо и нечего...</h3>
+    </div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="build.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

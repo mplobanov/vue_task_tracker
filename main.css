@@ -1,0 +1,19 @@
+.main {
+    margin-top: 5em;
+}
+
+.todo_table{
+    margin-top: 0.7em;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.show-done{
+    text-decoration: underline;
+}
+
+.unslectable {
+    user-select: none;
+}
